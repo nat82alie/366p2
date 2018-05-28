@@ -1,83 +1,84 @@
--- drop table if exists ExtraCharges;
--- drop table if exists ChargeType;
--- drop table if exists Bill;
--- drop table if exists Reservations;
--- drop table if exists Customer;
--- drop table if exists RoomPrices;
--- drop table if exists Employees;
--- drop table if exists Rooms; 
--- drop table if exists BedInfo; 
--- 
--- create table BedInfo(
---     ID integer primary key,
---     NumBed integer not null,
---     BedType integer not null
--- );
--- 
--- create table Rooms(
---     RoomNum integer primary key,
---     RoomView integer check (RoomView > 0 AND RoomView >= 12),
---     BedID integer references BedInfo (ID),
---     check (RoomNum % 100 <= 12),
---     check (RoomNum < 600)
--- );
--- 
--- create table Employees(
---     Login text primary key,
---     Pwd text not null,
---     Name text not null,
---     Email text,
---     Phone text,
---     Admin boolean default false
--- );
--- 
--- create table RoomPrices(
---     ID serial primary key,
---     RoomNum integer references Rooms (RoomNum),
---     Price decimal,
---     Date date
--- );
--- 
--- create table Customer(
---     Login text not null primary key,
---     Pwd text not null,
---     FName text not null,
---     LName text not null,
---     Email text not null,
---     Address text not null,
---     CCN text not null,
---     ExpDate date,
---     CRCCode integer not null
--- );
--- 
--- create table Reservations(
---     RID serial primary key,
---     CustLogin text references Customer,
---     CheckIn date not null,
---     CheckOut date not null,
---     RoomNum integer references Rooms,
---     ActualCheckOut date
--- );
--- 
--- create table Bill(
---     ID serial primary key,
---     ResID integer references Reservations,
---     CustLogin text references Customer,
---     Reason text,
---     RoomPrice decimal check (RoomPrice > 0),
---     ExtraPrice decimal check (RoomPrice > 0),
---     TotalPrice decimal check (TotalPrice = RoomPrice + ExtraPrice),
---     Date date
--- );
--- 
--- create table ChargeType(
---     ID serial primary key,
---     Name text not null,
---     Cost decimal not null
--- );
--- 
--- create table ExtraCharges(
---     ID serial primary key,
---     ResID integer references Reservations,
---     ChargeID integer references ChargeType
--- );
+drop table if exists customorder;
+drop table if exists manufacturer;
+drop table if exists custombox;
+drop table if exists material;
+drop table if exists trackinglabel;
+drop table if exists company;
+drop table if exists contactinfo; 
+drop table if exists address; 
+
+create table address(
+    id serial primary key,
+    street1 text not null,
+    street2 text,
+    city text not null,
+    state text not null,
+    zip text not null,
+    country text not null
+);
+
+create table contactinfo(
+    id serial primary key,
+    email text not null,
+    phone text,
+    address integer not null,
+    foreign key (address) references address (id)
+);
+
+create table company(
+    login text primary key,
+    pwd text not null,
+    name text not null,
+    contact_info integer not null,
+    foreign key (contact_info) references contactinfo (id)
+);
+
+create table trackinglabel(
+    id serial primary key,
+    code text not null,
+    shippingcompany text not null,
+    url text
+);
+
+create table material(
+    id serial primary key,
+    name text not null,
+    thickness real not null,
+    weight real not null,
+    check (thickness > 0),
+    check (weight > 0)
+);
+
+create table custombox(
+    id serial primary key,
+    length real not null,
+    width real not null,
+    height real not null,
+    color text,
+    material integer not null,
+    customtext text,
+    unitprice real not null,
+    foreign key (material) references material (id)
+);
+
+create table manufacturer(
+    id serial primary key,
+    name text not null,
+    address integer not null,
+    foreign key (address) references address (id)
+);
+
+create table customorder(
+    id serial primary key,
+    company text not null,
+    date date not null,
+    boxid integer not null,
+    quantity integer not null,
+    manufacturerid integer not null,
+    trackingid integer not null,
+    totalcost real not null,
+    foreign key (company) references company (login),
+    foreign key (boxid) references custombox (id),
+    foreign key (manufacturerid) references manufacturer (id),
+    foreign key (trackingid) references trackinglabel (id)
+);
