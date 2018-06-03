@@ -70,36 +70,18 @@ public class Login extends DBConnect implements Serializable {
         login = loginUI.getLocalValue().toString();
         password = value.toString();
         
-        String selectStmt = "select * from Employees where Login='" + login + "' and Pwd='" + password + "'";
-        try (Statement stmt = con.createStatement()) {
-            stmt.execute(selectStmt);
-            ResultSet res = stmt.executeQuery(selectStmt);
-            
+        String selectStmt = "select * from company where Login='" + login + "' and Pwd='" + password + "'";
+        try (Statement s = con.createStatement()) {
+            s.execute(selectStmt);
+            ResultSet res = s.executeQuery(selectStmt);
+
             if (!res.next()) {
-                selectStmt = "select * from Customers where Login='" + login + "' and Pwd='" + password + "'";
-                try (Statement s = con.createStatement()) {
-                    s.execute(selectStmt);
-                    res = stmt.executeQuery(selectStmt);
-                    
-                    if (!res.next()) {
-                        FacesMessage errorMessage = new FacesMessage("Incorrect login/password");
-                        throw new ValidatorException(errorMessage);
-                    }
-                    
-                    setUserType("customer");
-                    go();
-                } catch (SQLException e) {
-                    con.rollback();
-                }
+                FacesMessage errorMessage = new FacesMessage("Incorrect login/password");
+                throw new ValidatorException(errorMessage);
             }
-            
-            boolean isAdmin = res.getBoolean("Admin");
-            if (isAdmin)
-                setUserType("admin");
-            else if (!isAdmin)
-                setUserType("employee");
+
+            setUserType("company");
             go();
-            
         } catch (SQLException e) {
             con.rollback();
         }

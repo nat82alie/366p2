@@ -25,8 +25,8 @@ public class DBConnect {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://ambari-head.csc.calpoly.edu/team1", "team1",
-                    "amenda"); 
+                    "jdbc:postgresql://localhost:5432/postgres", "postgres",
+                    "monkeyfacem6WWYf"); 
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();

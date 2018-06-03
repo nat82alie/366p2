@@ -18,38 +18,25 @@ import javax.xml.bind.annotation.*;
 public class Selector implements Serializable {
 
     private String[] choices;
-    private String[] adminChoices = {"Change Your Password", "View Room Prices", "Change Room Prices",
-        "Add Employee", "Delete Employee", "Add A Customer", "Delete A Customer",
-        "Check In A Customer", "Check Out A Customer", "Add Charges To A Reservation",
-        "View A Reservation", "Create A Reservation", "Cancel A Reservation"};
-    private String[] employeeChoices = {"Change Your Password", "Add A Customer", "Delete A Customer",
-        "View Room Prices", "Check In A Customer", "Check Out A Customer", "Add Charges To A Reservation",
-        "View A Reservation", "Create A Reservation", "Cancel A Reservation"};
-    private String[] customerChoices = {"Check Your Reservations", "Create Your Reservation", "Cancel Your Reservation"};
+    private String[] companyChoices = {"Make An Order", "View Orders", 
+                                                                  "My Account"};
     private String choice;
-    private String userType = "";
+    private String userType = "company";
     private Login login;
     
     public void setUserType() {
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-        Login login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+        Login login = (Login) elContext.getELResolver().getValue(elContext, 
+                                                                 null, "login");
         userType = login.getUserType();
     }
     
     public String[] getChoices() {
         setUserType();
-        
-        if (userType == "admin") {
-            choices = adminChoices;
-            return adminChoices;
-        }
-        if (userType == "employee") {
-            choices = employeeChoices;
-            return employeeChoices;
-        }
-        if (userType == "customer") {
-            choices = customerChoices;
-            return customerChoices;
+       
+        if (userType == "company") {
+            choices = companyChoices;
+            return companyChoices;
         }
 
         return choices;
@@ -69,15 +56,13 @@ public class Selector implements Serializable {
 
     public String transition() {
         switch (choice) {
-            //delete first 4 cases upon implementation of userType
-            case "Create New Customer":
-                return "newCustomer";
-            case "List All Customers":
-                return "listCustomers";
-            case "Find Customer":
-                return "findCustomer";
-            case "Delete Customer":
-                return "deleteCustomer";
+            //company choices
+            case "Make An Order":
+                return "makeOrder";
+            case "View Orders":
+                return "viewOrders";
+            case "My Account":
+                return "myAccount";
             //delete the above cases upon implementation of userType
             
             case "Change Your Password": //a,e
@@ -116,6 +101,11 @@ public class Selector implements Serializable {
             default:
                 return null;
         }
+    }
+    
+    public String logout() {
+        Util.invalidateUserSession();
+        return "logout";
     }
 
 }

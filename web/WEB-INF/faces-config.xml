@@ -14,14 +14,13 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>customer</managed-bean-name>
-        <managed-bean-class>Customer</managed-bean-class>
+        <managed-bean-name>company</managed-bean-name>
+        <managed-bean-class>Company</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>login</property-name>
             <value>#{login}</value>
-        </managed-property>
-    </managed-bean>    
+        </managed-property></managed-bean>    
     <managed-bean>
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>Login</managed-bean-class>
@@ -36,31 +35,41 @@
             <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
+    
+    <!-- LOGOUT FROM START PAGE-->
     <navigation-rule>
         <from-view-id>
             /start.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>newCustomer</from-outcome>
-            <to-view-id>/newCustomer.xhtml</to-view-id>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    
+    <!-- COMPANY OPTIONS --> 
+    <navigation-rule>
+        <from-view-id>
+            /start.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>makeOrder</from-outcome>
+            <to-view-id>/makeOrder.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>listCustomers</from-outcome>
-            <to-view-id>/showAllCustomers.xhtml</to-view-id>
+            <from-outcome>viewOrders</from-outcome>
+            <to-view-id>/viewOrders.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>findCustomer</from-outcome>
-            <to-view-id>/findCustomer.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>deleteCustomer</from-outcome>
-            <to-view-id>/deleteCustomer.xhtml</to-view-id>
+            <from-outcome>myAccount</from-outcome>
+            <to-view-id>/myAccount.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
+    <!-- CREATE ACCOUNT --> 
     <navigation-rule>
         <from-view-id>
-            /newCustomer.xhtml
+            /makeAccount.xhtml
         </from-view-id>
         <navigation-case>
             <from-outcome>main</from-outcome>
@@ -68,23 +77,25 @@
         </navigation-case>
     </navigation-rule>
     
+    <!-- FROM VIEW ACC TO EDIT ACC PAGE -->
     <navigation-rule>
         <from-view-id>
-            /findCustomer.xhtml
+            /myAccount.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>showCustomer</from-outcome>
-            <to-view-id>/displayCustomer.xhtml</to-view-id>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/companyEditAccount.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
+    <!-- FROM EDIT ACC TO HOME PAGE --> 
     <navigation-rule>
         <from-view-id>
-            /deleteCustomer.xhtml
+            /companyEditAccount.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>main</from-outcome>
-            <to-view-id>/start.xhtml</to-view-id>
+            <from-outcome>editDone</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
