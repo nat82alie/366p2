@@ -18,8 +18,9 @@ import javax.xml.bind.annotation.*;
 public class Selector implements Serializable {
 
     private String[] choices;
+    /* keep the choices for the companies -Amanda */ 
     private String[] companyChoices = {"Make An Order", "View Orders", 
-                                                                  "My Account"};
+                                                                  "My Account"}; 
     private String choice;
     private String userType = "company";
     private Login login;
@@ -56,14 +57,13 @@ public class Selector implements Serializable {
 
     public String transition() {
         switch (choice) {
-            //company choices
+            //company choices -Amanda
             case "Make An Order":
                 return "makeOrder";
             case "View Orders":
                 return "viewOrders";
             case "My Account":
                 return "myAccount";
-            //delete the above cases upon implementation of userType
             
             case "Change Your Password": //a,e
                 return "changePwd";
@@ -103,6 +103,7 @@ public class Selector implements Serializable {
         }
     }
     
+    /* keep this for logout functionality on main user page -Amanda */
     public String logout() {
         Util.invalidateUserSession();
         return "logout";
