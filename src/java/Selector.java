@@ -18,40 +18,55 @@ import javax.xml.bind.annotation.*;
 public class Selector implements Serializable {
 
     private String[] choices;
-    private String[] adminChoices = {"Change Your Password", "View Room Prices", "Change Room Prices",
-        "Add Employee", "Delete Employee", "Add A Customer", "Delete A Customer",
-        "Check In A Customer", "Check Out A Customer", "Add Charges To A Reservation",
-        "View A Reservation", "Create A Reservation", "Cancel A Reservation"};
-    private String[] employeeChoices = {"Change Your Password", "Add A Customer", "Delete A Customer",
-        "View Room Prices", "Check In A Customer", "Check Out A Customer", "Add Charges To A Reservation",
-        "View A Reservation", "Create A Reservation", "Cancel A Reservation"};
-    private String[] customerChoices = {"Check Your Reservations", "Create Your Reservation", "Cancel Your Reservation"};
+    private String[] companyChoices = {"Change your password", "Edit your address", "Edit your contact info",
+        "View your orders", "Create a new order", "Modify an order", "Track an order"};
+    private String[] employeeChoices = {"Change your password", "Delete an Order",
+        "Edit your contact info", "View all orders", "Delete an order"};
+    private String[] adminChoices = {"admin option 1", "admin option 2"};
     private String choice;
     private String userType = "";
     private Login login;
     
+    private String companyLogin;
+    private String companyName;
+    private Integer companyContactInfo;
+    
+//    public void getLoginSession() {
+//        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+//        login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+//    }
+    
     public void setUserType() {
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-        Login login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+        login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+        
         userType = login.getUserType();
     }
     
+//    public void setCompanyInfo() {
+//        companyLogin = login.getUserLogin();
+//        companyName = login.getUserName();
+//        companyContactInfo = login.getUserContactInfo();
+//    }
+    
     public String[] getChoices() {
+//        getLoginSession();
         setUserType();
-        
-        if (userType == "admin") {
-            choices = adminChoices;
-            return adminChoices;
+//        setCompanyInfo();
+
+        if (userType == "company") {
+            choices = companyChoices;
+            return companyChoices;
         }
         if (userType == "employee") {
             choices = employeeChoices;
             return employeeChoices;
         }
-        if (userType == "customer") {
-            choices = customerChoices;
-            return customerChoices;
+        if (userType == "admin") {
+            choices = adminChoices;
+            return adminChoices;
         }
-
+        
         return choices;
     }
 
@@ -69,7 +84,7 @@ public class Selector implements Serializable {
 
     public String transition() {
         switch (choice) {
-            //delete first 4 cases upon implementation of userType
+            //none of these are right:
             case "Create New Customer":
                 return "newCustomer";
             case "List All Customers":
@@ -78,41 +93,7 @@ public class Selector implements Serializable {
                 return "findCustomer";
             case "Delete Customer":
                 return "deleteCustomer";
-            //delete the above cases upon implementation of userType
             
-            case "Change Your Password": //a,e
-                return "changePwd";
-            case "View Room Prices": //a,e
-                return "roomPrices";
-            case "Change Room Prices": //a
-                return "changeRoomPrices";
-            case "Add Employee": //a
-                return "addEmpl";
-            case "Delete Employee": //a
-                return "deleteEmpl";
-            case "Add A Customer": //a,e
-                return "addCustomer";
-            case "Delete A Customer": //a,e
-                return "deleteCustomer";
-            case "Check In A Customer": //a,e
-                return "checkInCustomer";
-            case "Check Out A Customer": //a,e
-                return "checkOutCustomer";
-            case "Add Charges To A Reservation": //a,e
-                return "addCharges";
-            case "View A Reservation": //a,e
-                return "viewReservation";
-            case "Create A Reservation": //a,e
-                return "createReservation";
-            case "Cancel A Reservation": //a,e
-                return "cancelReservation";
-                
-            case "Check Your Reservations": //customer
-                return "checkYourReservations";
-            case "Create Your Reservation": //customer
-                return "createYourReservation";
-            case "Cancel Your Reservation": //customer
-                return "cancelYourReservation";
             default:
                 return null;
         }
