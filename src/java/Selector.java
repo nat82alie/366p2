@@ -18,11 +18,12 @@ import javax.xml.bind.annotation.*;
 public class Selector implements Serializable {
 
     private String[] choices;
-    private String[] companyChoices = {"Change your password", "Edit your address", "Edit your contact info",
+    private String[] companyChoices = {"Change your password", "Change contact info",
         "View your orders", "Create a new order", "Modify an order", "Track an order"};
-    private String[] employeeChoices = {"Change your password", "Delete an Order",
+    private String[] employeeChoices = {"Change your password (employee)", "Delete an Order",
         "Edit your contact info", "View all orders", "Delete an order"};
-    private String[] adminChoices = {"admin option 1", "admin option 2"};
+    private String[] adminChoices = {"Change your password (admin)", "Add employee", "Delete employee",
+        "View all orders", "Delete an order"};
     private String choice;
     private String userType = "";
     private Login login;
@@ -31,14 +32,14 @@ public class Selector implements Serializable {
     private String companyName;
     private Integer companyContactInfo;
     
-//    public void getLoginSession() {
-//        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-//        login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
-//    }
-    
-    public void setUserType() {
+    public void getLoginSession() {
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
         login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+    }
+    
+    public void setUserType() {
+//        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+//        login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
         
         userType = login.getUserType();
     }
@@ -50,7 +51,7 @@ public class Selector implements Serializable {
 //    }
     
     public String[] getChoices() {
-//        getLoginSession();
+        getLoginSession();
         setUserType();
 //        setCompanyInfo();
 
@@ -84,16 +85,38 @@ public class Selector implements Serializable {
 
     public String transition() {
         switch (choice) {
-            //none of these are right:
-            case "Create New Customer":
-                return "newCustomer";
-            case "List All Customers":
-                return "listCustomers";
-            case "Find Customer":
-                return "findCustomer";
-            case "Delete Customer":
-                return "deleteCustomer";
-            
+            //company choices
+            case "Change your password":
+                return "changePw";
+            case "Change contact info":
+                return "changeContactInfo";
+            case "View your orders":
+                return "viewYourOrders";
+            case "Create a new order":
+                return "createOrder";
+            case "Modify an order":
+                return "modifyOrder";
+            case "Track an order":
+                return "trackOrder";
+                
+            //employee choices
+            case "Change your password (employee)":
+                return "changeEmployeePassword";
+            case "Delete an Order": //also admin
+                return "deleteOrder";
+            case "Edit your contact info":
+                return "editYourContactInfo";
+            case "View all orders": //also admin
+                return "viewAllOrders";
+                                
+            //admin choices
+            case "Change your password (admin)":
+                return "changeAdminPassword";
+            case "Add employee":
+                return "addEmployee";
+            case "Delete employee":
+                return "deleteEmployee";
+                
             default:
                 return null;
         }

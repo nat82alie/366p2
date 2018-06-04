@@ -29,9 +29,9 @@ public class Login extends DBConnect implements Serializable {
     private UIInput loginUI;
     private String userType;
     
-    private String userLogin;
-    private String userName;
-    private Integer userContactInfo;
+//    private String userLogin;
+//    private String userName;
+//    private Integer userContactInfo;
     
     public String getUserType() {
         return userType;
@@ -41,17 +41,17 @@ public class Login extends DBConnect implements Serializable {
         this.userType = userType;
     }
     
-    public String getUserLogin() {
-        return userLogin;
-    }
-    
-    public String getUserName() {
-        return userName;
-    }
-    
-    public Integer getUserContactInfo() {
-        return userContactInfo;
-    }
+//    public String getUserLogin() {
+//        return userLogin;
+//    }
+//    
+//    public String getUserName() {
+//        return userName;
+//    }
+//    
+//    public Integer getUserContactInfo() {
+//        return userContactInfo;
+//    }
     
     public UIInput getLoginUI() {
         return loginUI;
@@ -107,7 +107,6 @@ public class Login extends DBConnect implements Serializable {
 //                    userContactInfo = res.getInt("contact_info");
                     
                     boolean isAdmin = res.getBoolean("isadmin");
-//                    System.out.println("admin?: " + isAdmin);
                     if (isAdmin)
                         setUserType("admin");
                     else if (!isAdmin)

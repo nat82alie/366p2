@@ -41,24 +41,60 @@
             /start.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>newCustomer</from-outcome>
-            <to-view-id>/newCustomer.xhtml</to-view-id>
+            <from-outcome>changePw</from-outcome>
+            <to-view-id>/changePw.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>listCustomers</from-outcome>
-            <to-view-id>/showAllCustomers.xhtml</to-view-id>
+            <from-outcome>changeContactInfo</from-outcome>
+            <to-view-id>/changeContactInfo.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>findCustomer</from-outcome>
-            <to-view-id>/findCustomer.xhtml</to-view-id>
+            <from-outcome>viewYourOrders</from-outcome>
+            <to-view-id>/viewYourOrders.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>deleteCustomer</from-outcome>
-            <to-view-id>/deleteCustomer.xhtml</to-view-id>
+            <from-outcome>createOrder</from-outcome>
+            <to-view-id>/createOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>modifyOrder</from-outcome>
+            <to-view-id>/modifyOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>trackOrder</from-outcome>
+            <to-view-id>/trackOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changeYourPassword</from-outcome>
+            <to-view-id>/changeYourPassword.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deleteOrder</from-outcome>
+            <to-view-id>/deleteOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editYourContactInfo</from-outcome>
+            <to-view-id>/editYourContactInfo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewAllOrders</from-outcome>
+            <to-view-id>/viewAllOrders.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changeAdminPassword</from-outcome>
+            <to-view-id>/changeAdminPassword.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEmployee</from-outcome>
+            <to-view-id>/addEmployee.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deleteEmployee</from-outcome>
+            <to-view-id>/deleteEmployee.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
-    <navigation-rule>
+<!--    <navigation-rule>
         <from-view-id>
             /newCustomer.xhtml
         </from-view-id>
@@ -86,7 +122,7 @@
             <from-outcome>main</from-outcome>
             <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>-->
     
     
     
