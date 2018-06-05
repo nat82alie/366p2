@@ -203,7 +203,7 @@ public class Company implements Serializable {
     }
     
     public String editPage() {
-        return "edit";
+        return "changeContactInfo";
     }
     
     public String updateCompany() throws SQLException {
@@ -213,29 +213,44 @@ public class Company implements Serializable {
         }
         con.setAutoCommit(false);
         String update = "update company "
-                      + "set pwd = ?, companyname = ?, contactname = ?, "
-                      + "email = ?, phone = ?, street1 = ?, street2 = ?, "
+                      + "set companyname = ?, contactname = ?, email = ?, "
+                      + "phone = ?, street1 = ?, street2 = ?, "
                       + "city = ?, state = ?, zip = ?, country = ? "
                       + "where login = ?;";
         PreparedStatement ps = con.prepareStatement(update); 
-        ps.setString(1, pwd);
-        ps.setString(2, companyname);
-        ps.setString(3, contactname);
-        ps.setString(4, email);
-        ps.setString(5, phone);
-        ps.setString(6, street1); 
-        ps.setString(7, street2);
-        ps.setString(8, city);
-        ps.setString(9, state);
-        ps.setString(10, zip);
-        ps.setString(11, country);
-        ps.setString(12, userlogin);
+        ps.setString(1, companyname);
+        ps.setString(2, contactname);
+        ps.setString(3, email);
+        ps.setString(4, phone);
+        ps.setString(5, street1); 
+        ps.setString(6, street2);
+        ps.setString(7, city);
+        ps.setString(8, state);
+        ps.setString(9, zip);
+        ps.setString(10, country);
+        ps.setString(11, userlogin);
         ps.executeUpdate();
         con.commit();
         con.close();
         
         Util.invalidateUserSession();
         return "editDone";
+    }
+    
+    /* user login isn't being set? */ 
+    /* why isn't the password changing */ 
+    public String changePassword() throws SQLException {
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        con.setAutoCommit(false);
+         
+        String update = "update company set pwd = ? where login = ?;";
+        PreparedStatement ps = con.prepareStatement(update); 
+        ps.setString(1, pwd);
+        ps.setString(2, getUserlogin()); 
+        return "changePwd"; 
     }
 
     public Company getCompany() throws SQLException {
