@@ -20,7 +20,17 @@
         <managed-property>
             <property-name>login</property-name>
             <value>#{login}</value>
-        </managed-property></managed-bean>    
+        </managed-property>
+    </managed-bean>   
+    <managed-bean>
+        <managed-bean-name>custombox</managed-bean-name>
+        <managed-bean-class>CustomBox</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <value>#{login}</value>
+        </managed-property>
+    </managed-bean>  
     <managed-bean>
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>Login</managed-bean-class>
