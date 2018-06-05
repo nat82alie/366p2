@@ -1,16 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>company: change contact info</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>company: change contact info</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <title>Edit Account</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>Edit Account</h1>
+    </h:head>
+    <h:body>
+        <h:form>
+                                                  <!--validator="{company.validateCompanyLogin}"
+                                      validatorMessage="username already exists"-->
+            <h:panelGrid columns="1">
+                
+                Username: <h:inputText value="#{company.userlogin}" required ="true"
+                                      requiredMessage="Your must enter a login"
+                                      id="userlogin"/>
+                <h:message for="userlogin" style="color:red;margin:8px;"/>
+                
+                Password: <h:inputText value="#{company.pwd}" required ="false" id="pwd"/>
+                                      <!-- requiredMessage="Your must enter a password"
+                                      validatorMessage="Password must be at least eight characters"
+                                      id="pwd">
+                    <f:validateLength minimum="8"/>
+                </h:inputText> -->
+                <h:message for="pwd" style="color:red;margin:8px;"/>
+
+                Company Name: <h:inputText value="#{company.companyname}" required ="true"
+                                   requiredMessage="Please enter your company name"
+                                   id="companyname"/>
+                <h:message for="companyname" style="color:red;margin:8px;"/>
+                
+                Contact Name: <h:inputText value="#{company.contactname}" required ="true"
+                                   requiredMessage="Please enter your first name"
+                                   id="contactname"/>
+                <h:message for="contactname" style="color:red;margin:8px;"/>
+                
+                Email: <h:inputText value="#{company.email}" required ="true"
+                                   requiredMessage="Your must enter your email"
+                                   id="userEmail"/>
+                <h:message for="userEmail" style="color:red;margin:8px;"/>
+
+                <!-- validate pattern? -->
+                Phone Number: <h:inputText value="#{company.phone}" required ="true"
+                                      requiredMessage="Please enter your phone number"
+                                      validatorMessage="Must be at least ten numbers"
+                                      id="phonenum">
+                    <f:validateLength minimum="10"/>
+                </h:inputText>
+                <h:message for="phonenum" style="color:red;margin:8px;"/>
+                
+                Address 1: <h:inputText value="#{company.street1}" required ="true"
+                                   requiredMessage="Please enter you company address"
+                                   id="street1"/>
+                <h:message for="street1" style="color:red;margin:8px;"/>
+                
+                Address 2: <h:inputText value="#{company.street2}"/>
+                
+                City: <h:inputText value="#{company.city}" required ="true"
+                                   requiredMessage="Please enter your city"
+                                   id="city"/>
+                <h:message for="city" style="color:red;margin:8px;"/>
+                
+                State: <h:inputText value="#{company.state}" required ="true"
+                                   requiredMessage="Please enter your state"
+                                   id="state"/>
+                <h:message for="state" style="color:red;margin:8px;"/>
+                
+                Zip Code: <h:inputText value="#{company.zip}" required ="true"
+                                   requiredMessage="Please enter your zip code"
+                                   id="zip"/>
+                <h:message for="zip" style="color:red;margin:8px;"/>
+                
+                Country: <h:inputText value="#{company.country}" required ="true"
+                                   requiredMessage="Please enter your country"
+                                   id="country"/>
+                <h:message for="country" style="color:red;margin:8px;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid>
+                <h:commandButton value="Go" action="#{company.updateCompany}"/>
+            </h:panelGrid>
+        
+        </h:form>
+    </h:body>
 </html>
+

@@ -57,6 +57,10 @@
             /start.xhtml
         </from-view-id>
         <navigation-case>
+            <from-outcome>viewAcc</from-outcome>
+            <to-view-id>/myAccount.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>changeContactInfo</from-outcome>
             <to-view-id>/changeContactInfo.xhtml</to-view-id>
         </navigation-case>
@@ -106,20 +110,6 @@
         </navigation-case>
     </navigation-rule>
     
-<!--    <navigation-rule>
-            <from-outcome>makeOrder</from-outcome>
-            <to-view-id>/makeOrder.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>viewOrders</from-outcome>
-            <to-view-id>/viewOrders.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>myAccount</from-outcome>
-            <to-view-id>/myAccount.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> -->
-    
     <!-- CREATE ACCOUNT --> 
     <navigation-rule>
         <from-view-id>
@@ -137,24 +127,20 @@
             /myAccount.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>edit</from-outcome>
-            <to-view-id>/companyEditAccount.xhtml</to-view-id>
+            <from-outcome>changeContactInfo</from-outcome>
+            <to-view-id>/changeContactInfo.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
     <!-- FROM EDIT ACC TO HOME PAGE --> 
     <navigation-rule>
         <from-view-id>
-            /companyEditAccount.xhtml
+            /changeContactInfo.xhtml
         </from-view-id>
         <navigation-case>
             <from-outcome>editDone</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-    
-    
-    
-    
+
 </faces-config>
