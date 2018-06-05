@@ -18,6 +18,14 @@
                                       requiredMessage="Your must enter a login"
                                       id="userlogin"/>
                 <h:message for="userlogin" style="color:red;margin:8px;"/>
+                
+                Password: <h:inputText value="#{company.pwd}" required ="false" id="pwd"/>
+                                      <!-- requiredMessage="Your must enter a password"
+                                      validatorMessage="Password must be at least eight characters"
+                                      id="pwd">
+                    <f:validateLength minimum="8"/>
+                </h:inputText> -->
+                <h:message for="pwd" style="color:red;margin:8px;"/>
 
                 Company Name: <h:inputText value="#{company.companyname}" required ="true"
                                    requiredMessage="Please enter your company name"
