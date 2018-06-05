@@ -236,9 +236,7 @@ public class Company implements Serializable {
         Util.invalidateUserSession();
         return "editDone";
     }
-    
-    /* user login isn't being set? */ 
-    /* why isn't the password changing */ 
+
     public String changePassword() throws SQLException {
         Connection con = dbConnect.getConnection();
         if (con == null) {
@@ -248,9 +246,14 @@ public class Company implements Serializable {
          
         String update = "update company set pwd = ? where login = ?;";
         PreparedStatement ps = con.prepareStatement(update); 
+        String login = getUserlogin();
         ps.setString(1, pwd);
-        ps.setString(2, getUserlogin()); 
-        return "changePwd"; 
+        ps.setString(2, login); 
+        ps.executeUpdate(); 
+        con.commit();
+        con.close();
+        Util.invalidateUserSession();
+        return "changePass"; 
     }
 
     public Company getCompany() throws SQLException {
