@@ -14,20 +14,6 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>custombox</managed-bean-name>
-        <managed-bean-class>CustomBox</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>order</managed-bean-name>
-        <managed-bean-class>Order</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>login</property-name>
-            <value>#{login}</value>
-        </managed-property></managed-bean>    
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>company</managed-bean-name>
         <managed-bean-class>Company</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -153,17 +139,6 @@
         </from-view-id>
         <navigation-case>
             <from-outcome>editDone</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    
-    <!-- COMPANY CHANGE PWD --> 
-    <navigation-rule>
-        <from-view-id>
-            /changePw.xhtml
-        </from-view-id>
-        <navigation-case>
-            <from-outcome>changePwd</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
