@@ -42,6 +42,10 @@
             /start.xhtml
         </from-view-id>
         <navigation-case>
+            <from-outcome>changePw</from-outcome>
+            <to-view-id>/changePw.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
@@ -53,6 +57,56 @@
             /start.xhtml
         </from-view-id>
         <navigation-case>
+            <from-outcome>changeContactInfo</from-outcome>
+            <to-view-id>/changeContactInfo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewYourOrders</from-outcome>
+            <to-view-id>/viewYourOrders.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createOrder</from-outcome>
+            <to-view-id>/createOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>modifyOrder</from-outcome>
+            <to-view-id>/modifyOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>trackOrder</from-outcome>
+            <to-view-id>/trackOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changeYourPassword</from-outcome>
+            <to-view-id>/changeYourPassword.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deleteOrder</from-outcome>
+            <to-view-id>/deleteOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editYourContactInfo</from-outcome>
+            <to-view-id>/editYourContactInfo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewAllOrders</from-outcome>
+            <to-view-id>/viewAllOrders.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changeAdminPassword</from-outcome>
+            <to-view-id>/changeAdminPassword.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEmployee</from-outcome>
+            <to-view-id>/addEmployee.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deleteEmployee</from-outcome>
+            <to-view-id>/deleteEmployee.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+<!--    <navigation-rule>
             <from-outcome>makeOrder</from-outcome>
             <to-view-id>/makeOrder.xhtml</to-view-id>
         </navigation-case>
@@ -64,7 +118,7 @@
             <from-outcome>myAccount</from-outcome>
             <to-view-id>/myAccount.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule> -->
     
     <!-- CREATE ACCOUNT --> 
     <navigation-rule>
