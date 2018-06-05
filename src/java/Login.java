@@ -85,7 +85,7 @@ public class Login extends DBConnect implements Serializable {
         
         login = loginUI.getLocalValue().toString();
         password = value.toString();
-        
+
         String selectStmt = "select * from company where login='" + login + "' and pwd='" + password + "'";
         try (Statement stmt = con.createStatement()) {
             stmt.execute(selectStmt);
@@ -125,8 +125,8 @@ public class Login extends DBConnect implements Serializable {
             
             else
                 setUserType("company");
+
             go();
-            
         } catch (SQLException e) {
             con.rollback();
         }

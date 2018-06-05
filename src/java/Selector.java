@@ -24,8 +24,12 @@ public class Selector implements Serializable {
         "Edit your contact info", "View all orders", "Delete an order"};
     private String[] adminChoices = {"Change your password (admin)", "Add employee", "Delete employee",
         "View all orders", "Delete an order"};
+
+    /* keep the choices for the companies -Amanda */ 
+    private String[] companyChoices = {"Make An Order", "View Orders", 
+                                                                  "My Account"}; 
     private String choice;
-    private String userType = "";
+    private String userType = "company";
     private Login login;
     
     private String companyLogin;
@@ -40,7 +44,6 @@ public class Selector implements Serializable {
     public void setUserType() {
 //        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 //        login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
-        
         userType = login.getUserType();
     }
     
@@ -116,10 +119,25 @@ public class Selector implements Serializable {
                 return "addEmployee";
             case "Delete employee":
                 return "deleteEmployee";
+
+            //company choices -Amanda
+            case "Make An Order":
+                return "makeOrder";
+            case "View Orders":
+                return "viewOrders";
+            case "My Account":
+                return "myAccount";
+
                 
             default:
                 return null;
         }
+    }
+    
+    /* keep this for logout functionality on main user page -Amanda */
+    public String logout() {
+        Util.invalidateUserSession();
+        return "logout";
     }
 
 }
