@@ -1,4 +1,4 @@
-drop table if exists customorder;
+drop table if exists customerorder;
 drop table if exists manufacturer;
 drop table if exists custombox;
 drop table if exists material;
@@ -65,7 +65,7 @@ create table manufacturer(
     address text not null
 );
 
-create table customorder(
+create table customerorder(
     id serial primary key,
     company text not null,
     date date not null,
