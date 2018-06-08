@@ -9,6 +9,11 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>dropdownbaroptions</managed-bean-name>
+        <managed-bean-class>DropdownBarOptions</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>util</managed-bean-name>
         <managed-bean-class>Util</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -71,10 +76,10 @@
             <from-outcome>modifyOrder</from-outcome>
             <to-view-id>/modifyOrder.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
+        <!--<navigation-case>
             <from-outcome>trackOrder</from-outcome>
             <to-view-id>/trackOrder.xhtml</to-view-id>
-        </navigation-case>
+        </navigation-case>-->
         <navigation-case>
             <from-outcome>changeYourPassword</from-outcome>
             <to-view-id>/changeYourPassword.xhtml</to-view-id>
