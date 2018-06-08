@@ -19,7 +19,7 @@ public class Selector implements Serializable {
 
     private String[] choices;
     private String[] companyChoices = {"View account info", "Change your password", "Change contact info",
-        "View your orders", "Create a new order", "Modify an order", "Track an order"};
+        "View your orders", "Create a new order", "Request to modify an order"/*, "Track an order"*/};
     private String[] employeeChoices = {"Change your password (employee)", "Delete an Order",
         "Edit your contact info", "View all orders", "Delete an order"};
     private String[] adminChoices = {"Change your password (admin)", "Add employee", "Delete employee",
@@ -96,10 +96,16 @@ public class Selector implements Serializable {
                 return "viewYourOrders";
             case "Create a new order":
                 return "createOrder";
-            case "Modify an order":
+            case "Request to modify an order":
                 return "modifyOrder";
-            case "Track an order":
-                return "trackOrder";
+            case "Make An Order":
+                return "makeOrder";
+            case "View Orders":
+                return "viewOrders";
+            case "My Account":
+                return "myAccount";
+            /*case "Track an order":
+                return "trackOrder";*/
                 
             //employee choices
             case "Change your password (employee)":
@@ -118,22 +124,12 @@ public class Selector implements Serializable {
                 return "addEmployee";
             case "Delete employee":
                 return "deleteEmployee";
-
-            //company choices -Amanda
-            case "Make An Order":
-                return "makeOrder";
-            case "View Orders":
-                return "viewOrders";
-            case "My Account":
-                return "myAccount";
-
-                
+    
             default:
                 return null;
         }
     }
     
-    /* keep this for logout functionality on main user page -Amanda */
     public String logout() {
         Util.invalidateUserSession();
         return "logout";

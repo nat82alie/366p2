@@ -363,9 +363,10 @@ public class CustomBox implements Serializable {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        /* check this for correctness before handling viewyourorders.xhtml */ 
+        
         String select = "select * from custombox cb join customerorder co on "
-                + "(co.id = orderid) where company = ? order by co.id desc;";
+                + "(co.id = orderid) join trackinglabel t on (trackingid = "
+                + "t.id) where company = ? order by co.id desc;";
         PreparedStatement ps = con.prepareStatement(select);
         ps.setString(1, getCompany()); 
         ResultSet result = ps.executeQuery();
@@ -385,6 +386,7 @@ public class CustomBox implements Serializable {
             cb.setCustomtext(result.getString("customtext"));
             cb.setUnitprice(result.getDouble("unitprice"));
             cb.setCompany(result.getString("orderid"));
+            cb.setCode(result.getLong("code"));
 
             //store all data into a List
             list.add(cb);

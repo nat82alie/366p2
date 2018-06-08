@@ -10,6 +10,7 @@
     </h:head>
 
     <h:body>
+        <a href="https://www.ups.com/WebTracking/track?loc=en_US">Click here to track your order!</a>
         <h:form>
             <h:dataTable value="#{custombox.getCustomBox()}" var="cb" border="1">
             <h:column>
@@ -45,6 +46,11 @@
             <h:column>
                 <f:facet name="header">Custom Note</f:facet>
                     #{cb.customtext}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Tracking Number</f:facet>
+                    #{cb.code}
             </h:column>
                 
             <h:column>
