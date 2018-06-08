@@ -46,22 +46,7 @@
         </navigation-case>
     </navigation-rule> 
     
-    <!-- LOGOUT FROM START PAGE-->
-    <navigation-rule>
-        <from-view-id>
-            /start.xhtml
-        </from-view-id>
-        <!--<navigation-case>
-            <from-outcome>changePw</from-outcome>
-            <to-view-id>/changePw.xhtml</to-view-id>
-        </navigation-case>-->
-        <navigation-case>
-            <from-outcome>logout</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    
-    <!-- COMPANY OPTIONS --> 
+    <!-- START PAGE OPTIONS --> 
     <navigation-rule>
         <from-view-id>
             /start.xhtml
@@ -118,6 +103,10 @@
             <from-outcome>deleteEmployee</from-outcome>
             <to-view-id>/deleteEmployee.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     <!-- CREATE ACCOUNT --> 
@@ -131,7 +120,7 @@
         </navigation-case>
     </navigation-rule>
     
-    <!-- FROM VIEW ACC TO EDIT ACC PAGE -->
+    <!-- MY ACCOUNT PAGE -->
     <navigation-rule>
         <from-view-id>
             /myAccount.xhtml
@@ -140,9 +129,13 @@
             <from-outcome>changeContactInfo</from-outcome>
             <to-view-id>/changeContactInfo.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
-    <!-- FROM EDIT ACC TO HOME PAGE --> 
+    <!-- CHANGE CONTACT INFO PAGE --> 
     <navigation-rule>
         <from-view-id>
             /changeContactInfo.xhtml
@@ -150,6 +143,10 @@
         <navigation-case>
             <from-outcome>editDone</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -161,6 +158,36 @@
         <navigation-case>
             <from-outcome>changePass</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- CREATE ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /createOrder.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>placeOrder</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- VIEW ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /viewYourOrders.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

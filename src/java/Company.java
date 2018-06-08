@@ -255,6 +255,10 @@ public class Company implements Serializable {
         Util.invalidateUserSession();
         return "changePass"; 
     }
+    
+    public String cancel() {
+        return "cancel";
+    }
 
     public Company getCompany() throws SQLException {
         Connection con = dbConnect.getConnection();
