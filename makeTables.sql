@@ -31,7 +31,7 @@ create table employee (
 
 create table trackinglabel(
     id serial primary key,
-    code text not null,
+    code bigint not null,
     shippingcompany text not null,
     url text
 );
@@ -54,7 +54,8 @@ create table custombox(
     material integer not null,
     customtext text,
     unitprice real not null,
-    orderID integer not null,
+    quantity integer check (quantity > 0),
+    orderID integer,
     foreign key (material) references material (id),
     foreign key (orderID) references customerorder (id)
 );

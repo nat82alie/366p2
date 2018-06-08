@@ -38,6 +38,11 @@
                                    id="material"/>
                 <h:message for="material" style="color:red;margin:8px;"/>
                 
+                Number of Boxes: <h:inputText value="#{custombox.boxquantity}" required ="true"
+                                   requiredMessage="Please enter how many boxes to order"
+                                   id="boxquantity"/>
+                <h:message for="boxquantity" style="color:red;margin:8px;"/>
+                
                 Notes: <h:inputText value="#{custombox.customtext}"
                                    id="customtext"/>
                 <h:message for="customtext" style="color:red;margin:8px;"/>
@@ -45,6 +50,7 @@
             
             <h:panelGrid>
                 <h:commandButton value="Place Order" action="#{custombox.makeCustomBox}"/>
+                <h:commandButton value="Go Back" action="#{company.cancel}"/>
             </h:panelGrid>
         
         </h:form>
