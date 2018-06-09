@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.*;
 public class Selector implements Serializable {
 
     private String[] choices;
-    private String[] companyChoices = {"View account info", "Change your password", "Change contact info",
-        "View your orders", "Create a new order", "Request to modify an order"/*, "Track an order"*/};
+    private String[] companyChoices = {"View account info", "Change your password", 
+        "View your orders", "Create a new order", "Request to modify an order"};
     private String[] employeeChoices = {"Change your password (employee)", "Delete an Order",
         "Edit your contact info", "View all orders", "Delete an order"};
     private String[] adminChoices = {"Change your password (admin)", "Add employee", "Delete employee",
@@ -90,8 +90,6 @@ public class Selector implements Serializable {
                 return "viewAcc"; 
             case "Change your password":
                 return "changePw";
-            case "Change contact info":
-                return "changeContactInfo";
             case "View your orders":
                 return "viewYourOrders";
             case "Create a new order":
@@ -104,8 +102,6 @@ public class Selector implements Serializable {
                 return "viewOrders";
             case "My Account":
                 return "myAccount";
-            /*case "Track an order":
-                return "trackOrder";*/
                 
             //employee choices
             case "Change your password (employee)":

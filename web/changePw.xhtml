@@ -7,32 +7,36 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <title>Change Password</title>
     <h:head>
         <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
         <h1>Change Password</h1>
     </h:head>
     <h:body>
-        <h4>NOTE: make functionality to type in password twice before being able to change password -Amanda</h4>
         <h:form>
-                                                  <!--validator="{company.validateCompanyLogin}"
-                                      validatorMessage="username already exists"-->
             <h:panelGrid columns="1">
-                Password: <h:inputText value="#{company.pwd}" required ="false" id="pwd"/>
-                                      <!-- requiredMessage="Your must enter a password"
-                                      validatorMessage="Password must be at least eight characters"
-                                      id="pwd">
+                Login: <h:inputText value="#{company.getUserlogin()}" readonly="true"/>
+                
+                <!-- password validator isn't working but the rest is fine  --> 
+                Current Password: <h:inputSecret value="#{company.pwd}" required ="true" id="pwd"
+                                      requiredMessage="Your must enter your current password"
+                                      validatorMessage="Login/Password incorrect"
+                                      validator="#{company.validate}">
                     <f:validateLength minimum="8"/>
-                </h:inputText> -->
+                </h:inputSecret>
                 <h:message for="pwd" style="color:red;margin:8px;"/>
+                
+                New password:<p:password id="password" value="#{company.pwd}" required="true" match="repeated_password" 
+                                validatorMessage="Password must be at least 8 characters long"/>
+                <br></br>
+                Confirm new password: *<p:password id="repeated_password" value="#{company.pwd}" required="true"/>
             </h:panelGrid>
             
             <h:panelGrid>
                 <h:commandButton value="Go" action="#{company.changePassword}"/>
-            </h:panelGrid>
-            <h:panelGrid>
-                <h:commandButton value="Cancel" action="#{company.cancel}"/>
+                <h:commandButton value="Cancel" immediate="true" action="#{company.cancel}"/>
             </h:panelGrid>
         
         </h:form>

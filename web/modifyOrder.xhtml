@@ -21,7 +21,7 @@
                             requiredMessage="Please enter a request"/>
             <h:panelGrid>
                 <h:commandButton value="Send Request" action="#{changerequest.sendRequest}"/>
-                <h:commandButton value="Cancel" action="#{company.cancel}"/>
+                <h:commandButton value="Cancel" immediate="true" action="#{company.cancel()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>

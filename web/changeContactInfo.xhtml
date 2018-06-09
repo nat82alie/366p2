@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <title>Edit Account</title>
     <h:head>
         <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
@@ -10,11 +11,10 @@
     </h:head>
     <h:body>
         <h:form>
-                                                  <!--validator="{company.validateCompanyLogin}"
-                                      validatorMessage="username already exists"-->
             <h:panelGrid columns="1">
                 
-                Username: <h:inputText value="#{company.userlogin}" required ="true"
+                Username: <h:inputText value="#{company.getUserlogin()}" 
+                                      readonly="true"
                                       requiredMessage="Your must enter a login"
                                       id="userlogin"/>
                 <h:message for="userlogin" style="color:red;margin:8px;"/>
@@ -34,7 +34,6 @@
                                    id="userEmail"/>
                 <h:message for="userEmail" style="color:red;margin:8px;"/>
 
-                <!-- validate pattern? -->
                 Phone Number: <h:inputText value="#{company.phone}" required ="true"
                                       requiredMessage="Please enter your phone number"
                                       validatorMessage="Must be at least ten numbers"
@@ -73,8 +72,7 @@
             
             <h:panelGrid>
                 <h:commandButton value="Go" action="#{company.updateCompany}"/>
-                <h:commandButton value="Go Back" action="#{company.cancel}"/>
-                <!-- if you press cancel, negate the required --> 
+                <h:commandButton value="Go Back" immediate="true" action="#{company.cancel}"/>
             </h:panelGrid>
         
         </h:form>

@@ -64,10 +64,10 @@
             <from-outcome>viewAcc</from-outcome>
             <to-view-id>/myAccount.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
+        <!--<navigation-case>
             <from-outcome>changeContactInfo</from-outcome>
             <to-view-id>/changeContactInfo.xhtml</to-view-id>
-        </navigation-case>
+        </navigation-case>-->
         <navigation-case>
             <from-outcome>viewYourOrders</from-outcome>
             <to-view-id>/viewYourOrders.xhtml</to-view-id>
