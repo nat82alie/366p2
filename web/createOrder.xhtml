@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <title>Create Order</title>
     <h:head>
         <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
@@ -31,10 +32,11 @@
                                    id="color"/>
                 <h:message for="color" style="color:red;margin:8px;"/>
                 
-                <!-- material drop down box? --> 
-                Material: <h:inputText value="#{custombox.materialID}" required ="true"
-                                   requiredMessage="Please enter a material"
-                                   id="material"/>
+                Material: <h:selectOneMenu value="#{custombox.materialID}"
+                            required="true"
+                            requiredMessage="Please choose a material">
+                    <f:selectItems value="#{custombox.materialIDs}"/>
+                </h:selectOneMenu>
                 <h:message for="material" style="color:red;margin:8px;"/>
                 
                 Number of Boxes: <h:inputText value="#{custombox.boxquantity}" required ="true"
@@ -49,7 +51,7 @@
             
             <h:panelGrid>
                 <h:commandButton value="Place Order" action="#{custombox.makeCustomBox}"/>
-                <h:commandButton value="Go Back" action="#{company.cancel}"/>
+                <h:commandButton value="Go Back" immediate="true" action="#{company.cancel}"/>
             </h:panelGrid>
         
         </h:form>

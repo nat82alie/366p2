@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,16 +36,17 @@ public class CustomBox implements Serializable {
     private DBConnect dbConnect = new DBConnect();
     /* custombox */ 
     private int cbID;
-    private double length;
-    private double width;
-    private double height;
+    private Double length;
+    private Double width;
+    private Double height;
     private String color;
-    private int materialID;
+    private Integer materialID;
     private String customtext;
-    private int boxquantity;
-    private double unitprice;
+    private Integer boxquantity;
+    private Double unitprice;
     private String company;
-    
+    private ArrayList<Integer> materialIDs;
+
     /* customerorder */ 
     private int orderid; 
     private Date created_date; 
@@ -69,27 +69,27 @@ public class CustomBox implements Serializable {
         this.cbID = id;
     }
 
-    public double getLength() {
+    public Double getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 
-    public double getWidth() {
+    public Double getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(Double width) {
         this.width = width;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
@@ -101,11 +101,11 @@ public class CustomBox implements Serializable {
         this.color = color;
     }
 
-    public int getMaterialID() {
+    public Integer getMaterialID() {
         return materialID;
     }
 
-    public void setMaterialID(int materialID) {
+    public void setMaterialID(Integer materialID) {
         this.materialID = materialID;
     }
 
@@ -117,19 +117,19 @@ public class CustomBox implements Serializable {
         this.customtext = customtext;
     }
     
-    public int getBoxquantity() {
+    public Integer getBoxquantity() {
         return boxquantity;
     }
     
-    public void setBoxquantity(int boxquantity) {
+    public void setBoxquantity(Integer boxquantity) {
         this.boxquantity = boxquantity; 
     }
 
-    public double getUnitprice() {
+    public Double getUnitprice() {
         return unitprice;
     }
 
-    public void setUnitprice(double unitprice) {
+    public void setUnitprice(Double unitprice) {
         this.unitprice = unitprice;
     }
     
@@ -297,7 +297,7 @@ public class CustomBox implements Serializable {
         rs = ps2.executeQuery();
         rs.next();
         orderid = rs.getInt("myid");
-        
+      
         /* insert customerorder id into custombox */ 
         insert = "update custombox set orderid = ? where id = ?";
         ps = con.prepareStatement(insert);
@@ -307,6 +307,13 @@ public class CustomBox implements Serializable {
         
         con.commit();
         con.close();
+        
+        length = null;
+        width = null;
+        height = null;
+        color = null;
+        boxquantity = null;
+        customtext = null;
         
         return "placeOrder";
     }
@@ -330,32 +337,6 @@ public class CustomBox implements Serializable {
         Random rand = new Random();
         return Math.abs(rand.nextLong());
     }
-
-    /*public CustomBox getCustombox() throws SQLException {
-        Connection con = dbConnect.getConnection();
-
-        if (con == null) {
-            throw new SQLException("Can't get database connection");
-        }
-
-        String select = "select * from company where login = ?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setString(1, getUserlogin()); 
-        ResultSet result = ps.executeQuery();
-        result.next();
-
-        companyname = result.getString("companyname");
-        contactname = result.getString("contactname");
-        email = result.getString("email");
-        phone = result.getString("phone");
-        street1 = result.getString("street1");
-        street2 = result.getString("street2");
-        city = result.getString("city");
-        state = result.getString("state");
-        zip = result.getString("zip");
-        country = result.getString("country");
-        return this;
-    }*/
 
     public List<CustomBox> getCustomBox() throws SQLException {
 
@@ -394,6 +375,49 @@ public class CustomBox implements Serializable {
         result.close();
         con.close();
         return list;
+    }
+    
+    public ArrayList<Integer> getCustomBoxOrders() throws SQLException {
+
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        
+        String select = "select id from customerorder where company = ? order "
+                + "by id desc;";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setString(1, getCompany()); 
+        ResultSet result = ps.executeQuery();
+
+        ArrayList<Integer> idlist = new ArrayList<Integer>();
+        while (result.next()) {
+            idlist.add(result.getInt("id"));
+        }
+        result.close();
+        con.close();
+        return idlist;
+    }
+    
+    public ArrayList<Integer> getMaterialIDs() throws SQLException {
+
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        
+        String select = "select * from material order by id asc";
+        PreparedStatement ps = con.prepareStatement(select);
+        ResultSet result = ps.executeQuery();
+
+        ArrayList<Integer> idlist = new ArrayList<Integer>();
+        while (result.next()) {
+            idlist.add(result.getInt("id"));
+        }
+        result.close();
+        con.close();
+        materialIDs = idlist;
+        return idlist;
     }
     
     public String getMaterialName() throws SQLException {

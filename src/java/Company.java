@@ -183,7 +183,6 @@ public class Company implements Serializable {
         return "main";
     }
 
-    /* enter password to delete company? */ 
     public String deleteCompany() throws SQLException, ParseException {
         Connection con = dbConnect.getConnection();
 
@@ -228,12 +227,13 @@ public class Company implements Serializable {
         ps.setString(8, state);
         ps.setString(9, zip);
         ps.setString(10, country);
-        ps.setString(11, userlogin);
+        ps.setString(11, getUserlogin());
+        System.out.println(companyname + " " + contactname + " " + email + " " + phone + " " + 
+                street1 + " " + city + " " + state + " " + zip + " " + country+" "+getUserlogin());
         ps.executeUpdate();
         con.commit();
         con.close();
         
-        Util.invalidateUserSession();
         return "editDone";
     }
 
@@ -286,40 +286,25 @@ public class Company implements Serializable {
         return this;
     }
 
-    /*public List<Company> getCompanyList() throws SQLException {
-
+    public void validate(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException, SQLException {
         Connection con = dbConnect.getConnection();
+        con.setAutoCommit(false);
 
-        if (con == null) {
-            throw new SQLException("Can't get database connection");
+        String selectStmt = "select * from company where login='" + 
+                            getUserlogin() + "' and pwd='" + pwd + "'";
+        try (Statement stmt = con.createStatement()) {
+            stmt.execute(selectStmt);
+            ResultSet res = stmt.executeQuery(selectStmt);
+            if (!res.next()) {
+                // nothing
+            } else {
+                changePassword();
+            }
+        } catch (SQLException e) {
+            con.rollback();
         }
-
-        String select = "select login, companyname, contactname, email, "
-                      + "phone from company order by companyname";
-        PreparedStatement ps = con.prepareStatement(select);
-
-        //get company data from database
-        ResultSet result = ps.executeQuery();
-
-        List<Company> list = new ArrayList<Company>();
-
-        while (result.next()) {
-            
-            Company co = new Company();
-
-            co.setUserlogin(result.getString("login"));
-            co.setCompanyname(result.getString("companyname"));
-            co.setContactname(result.getString("contactname"));
-            co.setEmail(result.getString("email"));
-            co.setPhone(result.getString("phone"));
-
-            //store all data into a List
-            list.add(co);
-        }
-        result.close();
-        con.close();
-        return list;
-    }*/
+    }
 
     public void companyLoginExists(FacesContext context, 
                                   UIComponent componentToValidate, Object value)

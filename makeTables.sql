@@ -1,6 +1,7 @@
+drop table if exists request; 
+drop table if exists custombox;
 drop table if exists customerorder;
 drop table if exists manufacturer;
-drop table if exists custombox;
 drop table if exists material;
 drop table if exists trackinglabel;
 drop table if exists employee;
@@ -45,21 +46,6 @@ create table material(
     check (weight > 0)
 );
 
-create table custombox(
-    id serial primary key,
-    length real not null,
-    width real not null,
-    height real not null,
-    color text,
-    material integer not null,
-    customtext text,
-    unitprice real not null,
-    quantity integer check (quantity > 0),
-    orderID integer,
-    foreign key (material) references material (id),
-    foreign key (orderID) references customerorder (id)
-);
-
 create table manufacturer(
     id serial primary key,
     name text not null,
@@ -77,4 +63,26 @@ create table customerorder(
     foreign key (company) references company (login),
     foreign key (manufacturerid) references manufacturer (id),
     foreign key (trackingid) references trackinglabel (id)
+);
+
+create table custombox(
+    id serial primary key,
+    length real not null,
+    width real not null,
+    height real not null,
+    color text,
+    material integer not null,
+    customtext text,
+    unitprice real not null,
+    quantity integer check (quantity > 0),
+    orderID integer,
+    foreign key (material) references material (id),
+    foreign key (orderID) references customerorder (id)
+);
+
+create table changerequest(
+    id serial primary key,
+    company text references company(login),
+    orderid integer references customerorder(id),
+    message text not null
 );
