@@ -308,6 +308,13 @@ public class CustomBox implements Serializable {
         con.commit();
         con.close();
         
+        length = null;
+        width = null;
+        height = null;
+        color = null;
+        boxquantity = null;
+        customtext = null;
+        
         return "placeOrder";
     }
 

@@ -183,7 +183,6 @@ public class Company implements Serializable {
         return "main";
     }
 
-    /* enter password to delete company? */ 
     public String deleteCompany() throws SQLException, ParseException {
         Connection con = dbConnect.getConnection();
 
