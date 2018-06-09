@@ -331,32 +331,6 @@ public class CustomBox implements Serializable {
         return Math.abs(rand.nextLong());
     }
 
-    /*public CustomBox getCustombox() throws SQLException {
-        Connection con = dbConnect.getConnection();
-
-        if (con == null) {
-            throw new SQLException("Can't get database connection");
-        }
-
-        String select = "select * from company where login = ?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setString(1, getUserlogin()); 
-        ResultSet result = ps.executeQuery();
-        result.next();
-
-        companyname = result.getString("companyname");
-        contactname = result.getString("contactname");
-        email = result.getString("email");
-        phone = result.getString("phone");
-        street1 = result.getString("street1");
-        street2 = result.getString("street2");
-        city = result.getString("city");
-        state = result.getString("state");
-        zip = result.getString("zip");
-        country = result.getString("country");
-        return this;
-    }*/
-
     public List<CustomBox> getCustomBox() throws SQLException {
 
         Connection con = dbConnect.getConnection();
@@ -394,6 +368,28 @@ public class CustomBox implements Serializable {
         result.close();
         con.close();
         return list;
+    }
+    
+    public ArrayList<Integer> getCustomBoxOrders() throws SQLException {
+
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        
+        String select = "select id from customerorder where company = ? order "
+                + "by id desc;";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setString(1, getCompany()); 
+        ResultSet result = ps.executeQuery();
+
+        ArrayList<Integer> idlist = new ArrayList<Integer>();
+        while (result.next()) {
+            idlist.add(result.getInt("id"));
+        }
+        result.close();
+        con.close();
+        return idlist;
     }
     
     public String getMaterialName() throws SQLException {

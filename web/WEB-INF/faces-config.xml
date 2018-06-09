@@ -9,14 +9,18 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>dropdownbaroptions</managed-bean-name>
-        <managed-bean-class>DropdownBarOptions</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>util</managed-bean-name>
         <managed-bean-class>Util</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changerequest</managed-bean-name>
+        <managed-bean-class>ChangeRequest</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <value>#{login}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>company</managed-bean-name>
@@ -190,6 +194,21 @@
         <from-view-id>
             /viewYourOrders.xhtml
         </from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- MODIFY ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /modifyOrder.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>messageSent</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/start.xhtml</to-view-id>
