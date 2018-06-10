@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>company: modify order</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>company: modify order</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <title>Request to Modify an Order</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>Request to Modify an Order</h1>
+    </h:head>
+    <h:body>
+        <h:form> 
+                Order ID: <h:selectOneMenu value="#{changerequest.choice}"
+                            required="true"
+                            requiredMessage="Your must enter an order number">
+                    <f:selectItems value="#{changerequest.choices}"/>
+                </h:selectOneMenu>
+                <br></br>
+                <h:inputTextarea value = "#{changerequest.message}"
+                                 required="true"
+                            requiredMessage="Please enter a request"/>
+            <h:panelGrid>
+                <h:commandButton value="Send Request" action="#{changerequest.sendRequest}"/>
+                <h:commandButton value="Cancel" immediate="true" action="#{company.cancel()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
 </html>

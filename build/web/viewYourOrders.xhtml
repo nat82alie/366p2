@@ -1,16 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>company: view your orders</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>company: view your orders</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <title>Order History</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>Order History</h1>
+    </h:head>
+
+    <h:body>
+        <a href="https://www.ups.com/WebTracking/track?loc=en_US">Click here to track your order!</a>
+        <h:form>
+            <h:dataTable value="#{custombox.getCustomBox()}" var="cb" border="1">
+            <h:column>
+                <f:facet name="header"> ID </f:facet>
+                    #{cb.cbID}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header"> Length </f:facet>
+                    #{cb.length}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header"> Width</f:facet>
+                    #{cb.width}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Height</f:facet>
+                    #{cb.height}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Color</f:facet>
+                    #{cb.color}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Material</f:facet>
+                    #{cb.getMaterialName()}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Custom Note</f:facet>
+                    #{cb.customtext}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Tracking Number</f:facet>
+                    #{cb.code}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Price</f:facet>
+                    #{cb.unitprice}
+            </h:column>
+        </h:dataTable>
+            <h:panelGrid>
+                <h:commandButton value="Go Back" action="#{company.cancel}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
 </html>

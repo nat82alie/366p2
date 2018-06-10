@@ -20,10 +20,10 @@ public class Selector implements Serializable {
     private String[] choices;
     private String[] companyChoices = {"View account info", "Change your password", 
         "View your orders", "Create a new order", "Request to modify an order"};
-    private String[] employeeChoices = {"Change your password (employee)", "Delete an Order",
-        "Edit your contact info", "View all orders", "Delete an order"};
+    private String[] employeeChoices = {"Change your password (employee)",
+        "Edit your contact info", "View Requests", "View all orders", "Delete an Order"};
     private String[] adminChoices = {"Change your password (admin)", "Add employee", "Delete employee",
-        "View all orders", "Delete an order"};
+        "View all orders", "Delete an Order"};
 
     private String choice;
     private String userType = "company";
@@ -112,6 +112,8 @@ public class Selector implements Serializable {
                 return "editYourContactInfo";
             case "View all orders": //also admin
                 return "viewAllOrders";
+            case "View Requests":
+                return "vieworderequests";
                                 
             //admin choices
             case "Change your password (admin)":

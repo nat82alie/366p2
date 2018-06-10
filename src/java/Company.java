@@ -292,12 +292,13 @@ public class Company implements Serializable {
         con.setAutoCommit(false);
 
         String selectStmt = "select * from company where login='" + 
-                            getUserlogin() + "' and pwd='" + pwd + "'";
+                            getUserlogin() + "' and pwd='" + value + "'";
         try (Statement stmt = con.createStatement()) {
             stmt.execute(selectStmt);
             ResultSet res = stmt.executeQuery(selectStmt);
             if (!res.next()) {
-                // nothing
+                FacesMessage badmes = new FacesMessage("Login/Password incorrect");
+                throw new ValidatorException(badmes);
             } else {
                 changePassword();
             }

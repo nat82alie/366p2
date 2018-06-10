@@ -5,12 +5,36 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>employee: edit your contact info</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>employee: edit your contact info</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <title>Change Password</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>Edit Contact Info</h1>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="1">
+                Login: <h:inputText value="#{employee.getMyLogin()}" readonly="true"/>
+                
+                Current Password: <h:inputSecret value="#{employee.pwd}" required ="true" id="pwd"
+                                      requiredMessage="Your must enter your current password"
+                                      validator="#{employee.validate}">
+                </h:inputSecret>
+                <h:message for="pwd" style="color:red;margin:8px;"/>
+                
+                New email<h:inputText id="password" value="#{employee.email}" required="true" match="repeated_password" 
+                                validatorMessage="Password must be at least 8 characters long"/>
+                <br></br>
+                Confirm new email *<h:inputText id="repeated_password" value="#{employee.email}" required="true"/>
+            </h:panelGrid>
+            
+            <h:panelGrid>
+                <h:commandButton value="Go" action="#{employee.changecontact}"/>
+                <h:commandButton value="Cancel" immediate="true" action="#{employee.cancel}"/>
+            </h:panelGrid>
+        
+        </h:form>
+    </h:body>
 </html>

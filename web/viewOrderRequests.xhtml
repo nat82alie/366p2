@@ -11,7 +11,7 @@
 
     <h:body>
         <h:form>
-            <h:dataTable value="#{order.getOrders()}" var="order" border="1">
+            <h:dataTable value="#{changerequest.getMessages()}" var="order" border="1">
             <h:column>
                 <f:facet name="header"> ID </f:facet>
                     #{order.id}
@@ -24,27 +24,12 @@
 
             <h:column>
                 <f:facet name="header"> Quantity</f:facet>
-                    #{order.quantity}
+                    #{order.orderid}
             </h:column>
 
             <h:column>
                 <f:facet name="header"> Date </f:facet>
-                    #{order.date}
-            </h:column>
-                
-            <h:column>
-                <f:facet name="header"> Manufacturer ID </f:facet>
-                    #{order.manid}
-            </h:column>
-                
-            <h:column>
-                <f:facet name="header"> Tracking ID </f:facet>
-                    #{order.trackid}
-            </h:column>
-                
-            <h:column>
-                <f:facet name="header"> Total Cost </f:facet>
-                    #{order.cost}
+                    #{order.message}
             </h:column>
         </h:dataTable>
             <h:panelGrid>
