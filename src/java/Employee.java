@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -39,7 +40,17 @@ public class Employee implements Serializable {
     private String email;
     private String phone;
     private boolean isAdmin;
+    private String myLogin;
 
+    public String getMyLogin() {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        Login login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
+        return login.getLogin();
+    }
+
+    public void setMyLogin(String myLogin) {
+        this.myLogin = myLogin;
+    }
     //this method gets by numerical id, but we grab by login, so not sure if we need this ish
     public String getEmployeeID() throws SQLException {
         if (emplID == null) {
@@ -61,6 +72,15 @@ public class Employee implements Serializable {
         }
         return emplID;
     }
+
+    public String getEmplID() {
+        return emplID;
+    }
+
+    public void setEmplID(String emplID) {
+        this.emplID = emplID;
+    }
+    
 
     public void setEmployeeID(String emplID) {
         this.emplID = emplID;
@@ -120,19 +140,23 @@ public class Employee implements Serializable {
 
         Statement statement = con.createStatement();
 
-        PreparedStatement preparedStatement = con.prepareStatement("Insert into Employee values(?,?,?,?,?,?)");
+        PreparedStatement preparedStatement = con.prepareStatement("Insert into employee (login, pwd, name, email, isadmin) values(?,?,?,?,?)");
         preparedStatement.setString(1, emplID);
         preparedStatement.setString(2, pwd);
         preparedStatement.setString(3, name);
         preparedStatement.setString(4, email);
-        preparedStatement.setString(5, phone);
-        preparedStatement.setBoolean(6, isAdmin);
+        preparedStatement.setBoolean(5, isAdmin);
         preparedStatement.executeUpdate();
         statement.close();
         con.commit();
         con.close();
+        emplID = null;
+        pwd = null;
+        name = null;
+        email = null;
         //Util.invalidateUserSession();
         return "main";
+        
     }
 
     public String deleteEmployee() throws SQLException, ParseException {
@@ -144,11 +168,11 @@ public class Employee implements Serializable {
         con.setAutoCommit(false);
 
         Statement statement = con.createStatement();
-        statement.executeUpdate("Delete from Employee where Login = " + emplID);
+        statement.executeUpdate("Delete from employee where Login = '" + emplID + "'");
         statement.close();
         con.commit();
         con.close();
-        Util.invalidateUserSession();
+        emplID = null;
         return "main";
     }
 
@@ -243,7 +267,7 @@ public class Employee implements Serializable {
             throw new SQLException("Can't get database connection");
         }
 
-        PreparedStatement ps = con.prepareStatement("select * from Employee where Login = " + id);
+        PreparedStatement ps = con.prepareStatement("select * from employee where login = '" + id + "'");
 
         ResultSet result = ps.executeQuery();
         if (result.next()) {
@@ -254,5 +278,71 @@ public class Employee implements Serializable {
         result.close();
         con.close();
         return false;
+    }
+    
+        
+    public String changepass() throws SQLException {
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        con.setAutoCommit(false);
+         
+        String update = "update employee set pwd = ? where login = ?;";
+        PreparedStatement ps = con.prepareStatement(update); 
+        String login = getMyLogin();
+        ps.setString(1, pwd);
+        ps.setString(2, login); 
+        ps.executeUpdate(); 
+        con.commit();
+        con.close();
+        Util.invalidateUserSession();
+        return "changePass"; 
+    }
+    
+    public String cancel() {
+        return "cancel";
+    }
+        
+    public void validate(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException, SQLException {
+        Connection con = dbConnect.getConnection();
+        con.setAutoCommit(false);
+
+        String selectStmt = "select * from employee where login='" + 
+                            getMyLogin() + "' and pwd='" + value + "'";
+        try (Statement stmt = con.createStatement()) {
+            stmt.execute(selectStmt);
+            ResultSet res = stmt.executeQuery(selectStmt);
+            if (!res.next()) {
+                FacesMessage badmes = new FacesMessage("Login/Password incorrect");
+                throw new ValidatorException(badmes);
+            } else {
+                changepass();
+            }
+        } catch (SQLException e) {
+            con.rollback();
+        }
+    }
+        
+    public String changecontact() throws SQLException {
+        Connection con = dbConnect.getConnection();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        con.setAutoCommit(false);
+         
+        String update = "update employee set email = ? where login = ?;";
+        PreparedStatement ps = con.prepareStatement(update); 
+        String login = getMyLogin();
+        ps.setString(1, email);
+        ps.setString(2, login); 
+        ps.executeUpdate(); 
+        con.commit();
+        con.close();
+        email = null;
+        pwd = null;
+        Util.invalidateUserSession();
+        return "main"; 
     }
 }

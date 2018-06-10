@@ -14,14 +14,46 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>customer</managed-bean-name>
-        <managed-bean-class>Customer</managed-bean-class>
+        <managed-bean-name>changerequest</managed-bean-name>
+        <managed-bean-class>ChangeRequest</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>login</property-name>
             <value>#{login}</value>
         </managed-property>
-    </managed-bean>    
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>company</managed-bean-name>
+        <managed-bean-class>Company</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <value>#{login}</value>
+        </managed-property>
+    </managed-bean> 
+    <managed-bean>
+        <managed-bean-name>employee</managed-bean-name>
+        <managed-bean-class>Employee</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <value>#{login}</value>
+        </managed-property>
+    </managed-bean>   
+    <managed-bean>
+        <managed-bean-name>order</managed-bean-name>
+        <managed-bean-class>Order</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    <managed-bean>
+        <managed-bean-name>custombox</managed-bean-name>
+        <managed-bean-class>CustomBox</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <value>#{login}</value>
+        </managed-property>
+    </managed-bean>  
     <managed-bean>
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>Login</managed-bean-class>
@@ -36,18 +68,20 @@
             <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
+    
+    <!-- START PAGE OPTIONS --> 
     <navigation-rule>
         <from-view-id>
             /start.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>changePw</from-outcome>
-            <to-view-id>/changePw.xhtml</to-view-id>
+            <from-outcome>viewAcc</from-outcome>
+            <to-view-id>/myAccount.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
+        <!--<navigation-case>
             <from-outcome>changeContactInfo</from-outcome>
             <to-view-id>/changeContactInfo.xhtml</to-view-id>
-        </navigation-case>
+        </navigation-case>-->
         <navigation-case>
             <from-outcome>viewYourOrders</from-outcome>
             <to-view-id>/viewYourOrders.xhtml</to-view-id>
@@ -60,10 +94,10 @@
             <from-outcome>modifyOrder</from-outcome>
             <to-view-id>/modifyOrder.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
+        <!--<navigation-case>
             <from-outcome>trackOrder</from-outcome>
             <to-view-id>/trackOrder.xhtml</to-view-id>
-        </navigation-case>
+        </navigation-case>-->
         <navigation-case>
             <from-outcome>changeYourPassword</from-outcome>
             <to-view-id>/changeYourPassword.xhtml</to-view-id>
@@ -92,11 +126,20 @@
             <from-outcome>deleteEmployee</from-outcome>
             <to-view-id>/deleteEmployee.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>vieworderequests</from-outcome>
+            <to-view-id>/viewOrderRequests.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
-<!--    <navigation-rule>
+    <!-- CREATE ACCOUNT --> 
+    <navigation-rule>
         <from-view-id>
-            /newCustomer.xhtml
+            /makeAccount.xhtml
         </from-view-id>
         <navigation-case>
             <from-outcome>main</from-outcome>
@@ -104,28 +147,191 @@
         </navigation-case>
     </navigation-rule>
     
+    <!-- MY ACCOUNT PAGE -->
     <navigation-rule>
         <from-view-id>
-            /findCustomer.xhtml
+            /myAccount.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>showCustomer</from-outcome>
-            <to-view-id>/displayCustomer.xhtml</to-view-id>
+            <from-outcome>changeContactInfo</from-outcome>
+            <to-view-id>/changeContactInfo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
+    <!-- CHANGE CONTACT INFO PAGE --> 
     <navigation-rule>
         <from-view-id>
-            /deleteCustomer.xhtml
+            /changeContactInfo.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>editDone</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- CHANGE PWD --> 
+    <navigation-rule>
+        <from-view-id>
+            /changePw.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>changePass</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- CREATE ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /createOrder.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>placeOrder</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- VIEW ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /viewYourOrders.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- MODIFY ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /modifyOrder.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>messageSent</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- CHANGE ADMIN PWD --> 
+    <navigation-rule>
+        <from-view-id>
+            /changeAdminPassword.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>changePass</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+        <!-- CHANGE Employee PWD --> 
+    <navigation-rule>
+        <from-view-id>
+            /changeEmployeePassword.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>changePass</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+        <!-- VIEW ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /viewAllOrders.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+            <!-- DELETE ORDER --> 
+    <navigation-rule>
+        <from-view-id>
+            /deleteOrder.xhtml
         </from-view-id>
         <navigation-case>
             <from-outcome>main</from-outcome>
             <to-view-id>/start.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>-->
+    </navigation-rule>
     
+                <!-- DELETE EMPLOYEE --> 
+    <navigation-rule>
+        <from-view-id>
+            /deleteEmployee.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+                    <!-- ADD EMPLOYEE --> 
+    <navigation-rule>
+        <from-view-id>
+            /addEmployee.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+                        <!-- EDIT CONTACT INFO --> 
+    <navigation-rule>
+        <from-view-id>
+            /editYourContactInfo.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+                        <!-- VIEW MESSAGES --> 
+    <navigation-rule>
+        <from-view-id>
+            /viewOrderRequests.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+
 </faces-config>

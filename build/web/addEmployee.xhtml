@@ -1,16 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>admin: add employee</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>admin: add employee</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <title>New Employee</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>New Employee</h1>
+    </h:head>
+    <h:body>
+        <h:form>
+            
+            <h:panelGrid columns="1">
+                
+                Username: <h:inputText value="#{employee.emplID}" required ="true"
+                                      requiredMessage="Your must create a login"
+                                      validator="#{employee.validateEmployeeID}"
+                                      id="userLogin"/>
+                <h:message for="userLogin" style="color:red;margin:8px;"/>
+                
+                Password: <h:inputSecret value="#{employee.pwd}" required ="true"
+                                      requiredMessage="You must create a password"
+                                      validatorMessage="Password must be at least eight characters"
+                                      id="userPassword">
+                    <f:validateLength minimum="8"/>
+                </h:inputSecret>
+                <h:message for="userPassword" style="color:red;margin:8px;"/>
+
+                Name: <h:inputText value="#{employee.name}" required ="true"
+                                   requiredMessage="You must enter a name"
+                                   id="Name">
+                </h:inputText>
+                <h:message for="Name" style="color:red;margin:8px;"/>
+                
+                Email: <h:inputText value="#{employee.email}" required ="true"
+                                   requiredMessage="You must enter an email"
+                                   id="Email">
+                </h:inputText>
+                <h:message for="Email" style="color:red;margin:8px;"/>              
+            </h:panelGrid>
+            
+            <h:panelGrid>
+                <h:commandButton value="Create" action="#{employee.createEmployee}"/>
+            </h:panelGrid>
+        
+        </h:form>
+    </h:body>
 </html>

@@ -61,11 +61,15 @@ public class ChangeRequest implements Serializable {
         this.id = id;
     }
 
-    public String getCompany() {
+    public String getUser() {
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
         Login login = (Login) elContext.getELResolver().getValue(elContext, 
                                                                 null, "login");
         return login.getLogin();
+    }
+    
+    public String getCompany() {
+        return company;
     }
 
     public void setCompany(String company) {
@@ -99,16 +103,51 @@ public class ChangeRequest implements Serializable {
         String insert = "insert into changerequest (company, orderid, message)"
                 + " values (?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setString(1, getCompany());
+        ps.setString(1, getUser());
         ps.setInt(2, choice);
         ps.setString(3, message);
         ps.executeUpdate();
         con.commit();
         con.close();
-        
+        choice = 0;
+        message = null;
         return "messageSent";
     }
     
     // add function to grab the message for the employee 
+        public List<ChangeRequest> getMessages() throws SQLException {
 
+        Connection con = dbConnect.getConnection();
+
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+
+        PreparedStatement ps
+                = con.prepareStatement("select * from changerequest");
+
+        //get roomprices data from database
+        ResultSet result = ps.executeQuery();
+
+        List<ChangeRequest> list = new ArrayList<ChangeRequest>();
+
+        while (result.next()) {
+            ChangeRequest rp = new ChangeRequest();
+
+            rp.setId(result.getInt("id"));
+            rp.setCompany(result.getString("company"));
+            rp.setOrderid(result.getInt("orderid"));
+            rp.setMessage(result.getString("message"));
+            
+            //store all data into a List
+            list.add(rp);
+        }
+        result.close();
+        con.close();
+        id = 0;
+        company = null;
+        orderid = 0;
+        message = null;
+        return list;
+    }
 }
